@@ -1,0 +1,15 @@
+<!-- app/views/players/create_teams.html.erb -->
+<div class="container">
+  <h1>Balanced Teams</h1>
+
+  <% @teams.each_with_index do |team, index| %>
+    <h2>Team <%= index + 1 %></h2>
+    <ul>
+      <% team.each do |player| %>
+        <li><%= "#{player.first_name} #{player.last_name} - Attack: #{player.attack}, Defense: #{player.defense}, Vista: #{player.vista}, Endurance: #{player.endurance}" %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= link_to 'Back to Players', players_path, class: 'btn btn-secondary' %>
+</div>
