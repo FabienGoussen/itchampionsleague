@@ -1,71 +1,70 @@
 # app/controllers/players_controller.rb
 class PlayersController < ApplicationController
-  before_action :set_player, only: %i[show edit update destroy select]
+  before_action :set_player, only: %i[ show edit update destroy ]
 
+  # GET /players or /players.json
   def index
     @players = Player.all
   end
 
-  def show; end
+  # GET /players/1 or /players/1.json
+  def show
+  end
 
+  # GET /players/new
   def new
     @player = Player.new
   end
 
-  def edit; end
+  # GET /players/1/edit
+  def edit
+  end
 
+  # POST /players or /players.json
   def create
     @player = Player.new(player_params)
 
-    if @player.save
-      redirect_to @player, notice: 'Player was successfully created.'
-    else
-      render :new
+    respond_to do |format|
+      if @player.save
+        format.html { redirect_to @player, notice: "Player was successfully created." }
+        format.json { render :show, status: :created, location: @player }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @player.errors, status: :unprocessable_entity }
+      end
     end
   end
 
+  # PATCH/PUT /players/1 or /players/1.json
   def update
-    if @player.update(player_params)
-      redirect_to @player, notice: 'Player was successfully updated.'
-    else
-      render :edit
+    respond_to do |format|
+      if @player.update(player_params)
+        format.html { redirect_to @player, notice: "Player was successfully updated." }
+        format.json { render :show, status: :ok, location: @player }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @player.errors, status: :unprocessable_entity }
+      end
     end
   end
 
+  # DELETE /players/1 or /players/1.json
   def destroy
     @player.destroy
-    redirect_to players_url, notice: 'Player was successfully destroyed.'
-  end
-
-  def create_teams
-    @players = Player.where(selected: true)
-    team_size = params[:team_size].to_i
-
-    @teams = TeamBuilder.new(@players).balanced_teams(team_size)
-    render :create_teams
-  end
-
-  def select
-    @player.update(selected: !@player.selected)
-    redirect_to players_path
-  end
-
-  def import
-    if params[:file].present?
-      Player.import(params[:file])
-      redirect_to players_path, notice: 'Players imported successfully.'
-    else
-      redirect_to players_path, alert: 'Please upload a valid CSV file.'
+    respond_to do |format|
+      format.html { redirect_to players_url, notice: "Player was successfully destroyed." }
+      format.json { head :no_content }
     end
   end
 
   private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_player
+      @player = Player.find(params[:id])
+    end
 
-  def set_player
-    @player = Player.find(params[:id])
-  end
-
+    # Only allow a list of trusted parameters through.
   def player_params
-    params.require(:player).permit(:first_name, :last_name, :avatar, :attack, :defense, :vista, :endurance, :selected)
+    params.require(:player).permit(:first_name, :last_name, :technique, :vista_collectif, :physique)
   end
 end

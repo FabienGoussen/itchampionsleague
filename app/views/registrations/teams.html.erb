@@ -1,0 +1,19 @@
+<!-- app/views/registrations/teams.html.erb -->
+<h1>Generated Teams</h1>
+
+<% @teams.each_with_index do |team, index| %>
+  <h2>Team <%= index + 1 %></h2>
+  <ul>
+    <% team.each do |player| %>
+      <li><%= player.full_name %> - technique: <%= player.technique %>, vista_collectif: <%= player.vista_collectif %>, physique: <%= player.physique %></li>
+    <% end %>
+  </ul>
+  <h3>Team Averages</h3>
+  <ul>
+    <li>Attack: <%= @team_averages[index][:technique] %></li>
+    <li>Defense: <%= @team_averages[index][:vista_collectif] %></li>
+    <li>Vista: <%= @team_averages[index][:physique] %></li>
+  </ul>
+<% end %>
+
+<%= link_to 'Back', registrations_path, class: 'btn btn-secondary' %>

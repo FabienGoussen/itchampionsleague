@@ -1,55 +1,49 @@
-<!-- app/views/players/index.html.erb -->
-<div class="container">
-  <h1>Listing Players</h1>
 
-  <table>
-    <thead>
+<h1>Listing Players</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Prenom</th>
+      <th>Avatar</th>
+      <th>Technique</th>
+      <th>Vista/Collectif</th>
+      <th>Physique</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @players.each do |player| %>
       <tr>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Attack</th>
-        <th>Defense</th>
-        <th>Vista</th>
-        <th>Endurance</th>
-        <th>Selected</th>
-        <th colspan="3"></th>
+        <td><%= player.first_name %></td>
+        <td><%= player.last_name %></td>
+        <!--<td><#%= image_tag(player.avatar) if player.avatar.present? %></td>-->
+        <td><%= player.technique %></td>
+        <td><%= player.vista_collectif %></td>
+        <td><%= player.physique %></td>
+        <td><%= link_to 'Show', player %></td>
+        <td><%= link_to 'Edit', edit_player_path(player) %></td>
+        <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-    </thead>
+    <% end %>
+  </tbody>
+</table>
 
-    <tbody>
-      <% @players.each do |player| %>
-        <tr>
-          <td><%= player.first_name %></td>
-          <td><%= player.last_name %></td>
-          <td><%= player.attack %></td>
-          <td><%= player.defense %></td>
-          <td><%= player.vista %></td>
-          <td><%= player.endurance %></td>
-          <td>
-            <%= form_with url: select_player_path(player), method: :patch, local: true do |form| %>
-              <%= form.check_box :selected, { checked: player.selected } %>
-              <%= form.submit "Select" %>
-            <% end %>
-          </td>
-          <td><%= link_to 'Show', player %></td>
-          <td><%= link_to 'Edit', edit_player_path(player) %></td>
-          <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<br>
 
-  <%= link_to 'New Player', new_player_path, class: 'btn btn-primary' %>
+<%= link_to 'New Player', new_player_path %>
 
-  <%= form_with url: create_teams_players_path, method: :get, local: true, class: 'form-inline' do |form| %>
+  <!-- <#%= form_with url: create_teams_players_path, method: :get, local: true, class: 'form-inline' do |form| %>
     <div class="form-group">
-      <%= form.label :team_size, "Team size" %>
-      <%= form.number_field :team_size, class: 'form-control' %>
+      <#%= form.label :team_size, "Team size" %>
+      <#%= form.number_field :team_size, class: 'form-control' %>
     </div>
     <div class="actions">
-      <%= form.submit "Create Teams", class: 'btn btn-success' %>
+      <#%= form.submit "Create Teams", class: 'btn btn-success' %>
     </div>
-  <% end %>
+  <#% end %> -->
 
   <hr>
 

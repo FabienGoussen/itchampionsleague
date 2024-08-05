@@ -5,11 +5,12 @@ class TeamBuilder
   end
 
   def balanced_teams(team_size)
-    sorted_players = @players.sort_by { |player| player.attack + player.defense + player.vista + player.endurance }.reverse
-    teams = Array.new((@players.size / team_size.to_f).ceil) { [] }
+    teams = []
+    players_copy = @players.dup
 
-    sorted_players.each_with_index do |player, index|
-      teams[index % teams.size] << player
+    while players_copy.size > 0
+      team = players_copy.shift(team_size)
+      teams << team
     end
 
     teams

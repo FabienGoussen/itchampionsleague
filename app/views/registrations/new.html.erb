@@ -1,0 +1,41 @@
+<!-- app/views/registrations/new.html.erb -->
+<h1>New Registration</h1>
+
+<%= form_with(model: @registration, local: true) do |form| %>
+  <% if @registration.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@registration.errors.count, "error") %> prohibited this registration from being saved:</h2>
+      <ul>
+        <% @registration.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :player_id, "Select Player" %>
+    <%= form.collection_select :player_id, @players, :id, ->(player) { "#{player.first_name} #{player.last_name}" }, { include_blank: 'Select a player' } %>
+  </div>
+
+  <% if @registration.player %>
+    <div class="field">
+      <%= form.label :technique, "Technique" %>
+      <%= form.number_field :technique, value: @registration.player.technique, readonly: true %>
+    </div>
+
+    <div class="field">
+      <%= form.label :vista_collectif, "Vista/Collectif" %>
+      <%= form.number_field :vista_collectif, value: @registration.player.vista_collectif, readonly: true %>
+    </div>
+
+    <div class="field">
+      <%= form.label :physique, "Physique" %>
+      <%= form.number_field :physique, value: @registration.player.physique, readonly: true %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
