@@ -3,6 +3,7 @@ source "https://rubygems.org"
 ruby "2.7.8"
 gem 'rails', '~> 7.0.0'
 gem 'smarter_csv'
+gem 'pg'
 
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
