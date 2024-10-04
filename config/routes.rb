@@ -14,10 +14,11 @@ Rails.application.routes.draw do
   end
 
  resources :registrations, only: [:new, :create, :index, :destroy] do
-    collection do
-      get :create_teams
-    end
+  collection do
+    post :create_teams
+    get :teams
   end
+end
 
   root 'players#index'
 end

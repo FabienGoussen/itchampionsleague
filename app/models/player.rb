@@ -1,6 +1,8 @@
 # app/models/player.rb
 class Player < ApplicationRecord
   has_many :registrations
+  has_many :team_memberships
+  has_many :teams, through: :team_memberships
   validates :first_name, :last_name, presence: true
   validates :technique, :vista_collectif, :physique, numericality: {
     greater_than_or_equal_to: 0,
@@ -18,5 +20,9 @@ class Player < ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def total_score
+    technique.to_f + vista_collectif.to_f + physique.to_f
   end
 end

@@ -5,14 +5,14 @@
   <h2>Team <%= index + 1 %></h2>
   <ul>
     <% team.each do |player| %>
-      <li><%= player.full_name %> - technique: <%= player.technique %>, vista_collectif: <%= player.vista_collectif %>, physique: <%= player.physique %></li>
+      <li><%= player.full_name %> - Technique: <%= player.technique %>, Vista: <%= player.vista_collectif %>, Physique: <%= player.physique %></li>
     <% end %>
   </ul>
   <h3>Team Averages</h3>
   <ul>
-    <li>Attack: <%= @team_averages[index][:technique] %></li>
-    <li>Defense: <%= @team_averages[index][:vista_collectif] %></li>
-    <li>Vista: <%= @team_averages[index][:physique] %></li>
+    <li>Technique: <%= @team_averages[index][:technique] %></li>
+    <li>Vista/Collectif: <%= @team_averages[index][:vista_collectif] %></li>
+    <li>Physique: <%= @team_averages[index][:physique] %></li>
   </ul>
 <% end %>
 
