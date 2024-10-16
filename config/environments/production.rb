@@ -84,6 +84,10 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
+  Rails.application.configure do
+    config.hosts << "rails-production-fed6.up.railway.app"
+  end
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
